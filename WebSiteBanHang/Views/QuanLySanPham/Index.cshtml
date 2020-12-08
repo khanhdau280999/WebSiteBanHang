@@ -1,0 +1,59 @@
+﻿@using WebSiteBanHang.Models
+@model IEnumerable<SanPham>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    //Khởi tạo control WebGrid
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
+}
+@Html.ActionLink("Thêm sản phẩm","TaoMoi", null, new { @class="btn btn-success"})
+<br /><br />
+@*Thể hiện dữ liệu thông qua control webgrid*@
+@grid.GetHtml(
+    tableStyle: "gridTable",
+    headerStyle: "gridHead",
+    footerStyle: "gridFooter",
+    rowStyle: "gridRow",
+    alternatingRowStyle: "gridAltRow",
+    columns: grid.Columns(
+        grid.Column("MaSP", "Mã Sản Phẩm"),
+        grid.Column("TenSP", "Tên Sản Phẩm"),
+        grid.Column("HinhAnh", "Hình ảnh", format: p => @Html.Raw("<img width=\"150\" height=\"50\" src=\"../Content/HinhAnhSP/"+p.HinhAnh+"\">")),
+        grid.Column(format: p => @Html.ActionLink("Chỉnh sửa","ChinhSua",new { id = p.MaSP})),
+        grid.Column(format: p => @Html.ActionLink("Xóa","Xoa",new { id = p.MaSP}))
+
+        ))
+<style>
+    .divTable{
+        border:1px solid #ff6a00;
+        width:100%
+    }
+    .divTable td{
+        border: 1px solid #999999
+    }
+    .gridHead{
+        background-color:midnightblue
+    }
+    .gridHead > th > a {
+        color:#fff;
+    }
+    .gridFooter{
+        font-weight:bold;
+    }
+    /*.gridRow{
+        color:#fff;
+        background-color:blueviolet;
+    }
+    .gridAltRow{
+        color:#fff;
+        background-color:darkgoldenrod;
+    }*/
+</style>
+<style>
+    .FooterAdmin{
+        display:none;
+    }
+</style>
+

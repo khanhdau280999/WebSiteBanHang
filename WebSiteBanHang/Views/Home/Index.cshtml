@@ -1,0 +1,44 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+@{
+    IEnumerable<SanPham> lstDTM = (IEnumerable<SanPham>)ViewBag.ListDTM;
+    IEnumerable<SanPham> lstLTM = (IEnumerable<SanPham>)ViewBag.ListLTM;
+    IEnumerable<SanPham> lstMTB = ViewBag.ListMTB as IEnumerable<SanPham>;
+
+
+}
+@Html.RouteLink("Click vào đây để vào trang khách hàng", "khachhang")
+@*Bước 1 tách code và lồng partialview*@
+@*Bước 2 gán dữ liệu từ controller thông qua viewbag vào partialview*@
+@*Điện thoại*@
+<div class="content-top">
+    <h1>Điện thoại mới nhất</h1>
+    <div class="grid-in">
+        <div class="container">
+            @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstDTM)
+        </div>
+    </div>
+
+    <h1>Máy tính xách tay mới nhất</h1>
+    <div class="grid-in">
+        <div class="container">
+            @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", lstLTM)
+        </div>
+    </div>
+
+    <h1>Máy tính bảng mới nhất</h1>
+    <div class="grid-in">
+
+        @*Máy tính bảng*@
+        <div class="container">
+            @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstMTB)
+        </div>
+    </div>
+</div>
+

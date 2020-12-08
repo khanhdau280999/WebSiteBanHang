@@ -1,0 +1,124 @@
+﻿@using WebSiteBanHang.Models;
+<div class="header-top">
+    <div class="container">
+        <div class="search">
+            @*Tạo form submit về Action tìm kiếm*@
+            @using (Html.BeginForm("KQTimKiem", "TimKiem"))
+            {
+            
+                <input type="text" name="sTuKhoa" placeholder="Nhập tên sản phẩm cần tìm...">
+                <input type="submit" value="Tìm kiếm">
+            }
+        </div>
+        <div class="header-left">
+            <ul>
+
+                @if (Session["TaiKhoan"] != null && Session["TaiKhoan"] != "")
+                {
+                    ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
+                    <li>Chào @tv.HoTen</li>
+                    @Html.ActionLink("Đăng xuất", "DangXuat", "Home")
+                }
+                else
+                {
+                    <li style="display:inline;"><a id="btnDangNhap" class="lock" href="#">Đăng nhập</a></li>
+                    <li style="display:inline;"><a class="lock" href="@Url.Action("DangKy","Home")">Đăng ký</a></li>
+                }
+                <li>
+                </li>
+
+            </ul>
+            @*Chèn partial view giỏ hàng vào layout*@
+            @Html.Action("GioHangPartial", "GioHang")
+            @*<div class="cart box_1">
+                    <a href="checkout.html">
+                        <h3>
+                            <div class="total">
+                                <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                            </div>
+                            <img src="images/cart.png" alt="" />
+                        </h3>
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+
+                </div>*@
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+
+<link href="~/Content/css/stylee.css" rel="stylesheet" />
+<div>
+    <br />
+    @*<input type="button" value="Đăng nhập" id="btnDangNhap" class="btn btn-primary" />*@
+    @*Tạo 1 div bên ngoài chứa div login*@
+    <div id="popup_login">
+        <div class="login-form" id="login-form">
+            <div style="clear:both;text-align:right;margin-bottom:0;">
+                <span id="close-form" class="btn btn-danger">X</span>
+            </div>
+            <h2>Đăng nhập</h2>
+            <div class="form-info">
+                @using (Ajax.BeginForm("DangNhap", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
+                {
+                    <input class="email TaiKhoan" name="txtTenDangNhap" placeholder="Tên đăng nhập" required="" type="text" />
+                    <input class="password MatKhau" name="txtMatKhau" placeholder="Mật khẩu" required="" type="password" />
+                    <p><a href="#">Quên mật khẩu?</a></p>
+                    <h3 style="font-weight:bold;color:red;text-align:left;" id="ThongBao"></h3>
+                    <ul class="login-buttons">
+                        <li><input value="Đăng nhập" type="submit" id="btnDangNhap1" /></li>
+                        <li><a href="#" class="hvr-sweep-to-left">Đăng ký</a></li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+
+    #close-form {
+        color: white;
+    }
+    /*css cho phần div popup_login*/
+    #popup_login {
+        position: fixed;
+        background-color: rgba(0,0,0,.5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        display: none;
+    }
+
+    #login-form {
+        background: #3a3a46;
+        cursor: pointer;
+    }
+</style>
+@*Sử dụng jquery hiển thị popup đăng nhập*@
+<script type="text/javascript">
+    //Hiển thị đăng nhập
+    $("#btnDangNhap").click(function () {
+        $("#popup_login").css("display", "block");
+    });
+    //Ẩn đi popup_login
+    $("#close-form").click(AnForm
+    );
+    function AnForm() {
+        $("#popup_login").hide();
+    }
+    //ví dụ về lấy giá trị từ textbox
+    $("#btnDangNhap1").click(function () {
+        var TaiKhoan = $(".TaiKhoan").val();
+        var MatKhau = $(".MatKhau").val();
+        //alert("Tài khoản:" + TaiKhoan + "\n Mật khẩu:" + MatKhau);
+        if (TaiKhoan == "") {
+            alert("Lỗi");
+            return;
+        }
+    });
+</script>

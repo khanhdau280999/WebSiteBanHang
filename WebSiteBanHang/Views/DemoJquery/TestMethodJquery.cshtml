@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "TestMethodJquery";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<input type="text" class="test" />
+<input type="button" value="Xuất thông báo" id="btnXuatThongBao" />
+//Demo phương thức each
+<div class="content">abc1</div>
+<div class="content">abc2</div>
+<div class="content">abc3</div>
+<div class="content">abc4</div>
+<div class="content">abc5</div>
+<div class="content">abc6</div>
+
+    <script>
+        //Cách 1:
+        $("#btnXuatThongBao").click(function () {
+            var noidung = $(".test").val();
+            alert(noidung);
+        });
+        //Cách 2:
+        $("Body").delegate("#btnXuatThongBao", "click", function () {
+            var noidung = $(".test").val();
+            alert(noidung);
+        });
+        //Cách 3
+        $("Body").on("click", "#btnXuatThongBao", function () {
+            var noidung = $(".test").val();
+            alert(noidung);
+        });
+
+        $("#btnXuatThongBao").click(function () {
+            $(".content").each(function () {
+                var noidung = $(this).text();
+                alert(noidung);
+            });
+        });
+
+    </script>
+

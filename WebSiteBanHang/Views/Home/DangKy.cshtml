@@ -1,0 +1,93 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@using CaptchaMvc;
+@using WebSiteBanHang.Models;
+@model ThanhVien
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+<div class=" DangKy">
+    <div class=" register">
+        <h1>Đăng ký thành viên</h1>
+
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @using (Html.BeginForm())
+        {
+
+
+    <div class="col-md-6 register-top-grid">
+        <h3>Thông tin cá nhân</h3>
+        <div>
+            <span>@Html.LabelFor(model => model.TaiKhoan, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+            @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "cTaiKhoan" })
+            @Html.ValidationMessageFor(model => model.TaiKhoan)
+        </div>
+        <div>
+            <span>@Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+            @Html.TextBoxFor(model => model.HoTen, new { @class = "cHoten" })
+            @Html.ValidationMessageFor(model => model.HoTen)
+        </div>
+        <div>
+
+            <span>@Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+            @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "cSoDienThoai" })
+            @Html.ValidationMessageFor(model => model.SoDienThoai)
+        </div>
+        <div>
+            <span>@Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+            @Html.TextBoxFor(model => model.DiaChi, new { @class = "cDiaChi" })
+            @Html.ValidationMessageFor(model => model.DiaChi)
+        </div>
+        <div>
+            <span>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+            @Html.TextBoxFor(model => model.Email, new { @class = "cEmail" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        @*<div>
+            <span>Email</span>
+            @Html.TextBox("Email")
+        </div>*@
+        @*<a class="news-letter" href="#">
+            <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
+        </a>*@
+    </div>
+            <div class="col-md-6 register-bottom-grid register-top-grid">
+                <h3>Thông tin đăng nhập</h3>
+                <div>
+                    <span> @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                    @*@Html.Password("MatKhau")*@
+                    @Html.TextBoxFor(model => model.MatKhau, new { @class = "cMatKhau" })
+                    @Html.ValidationMessageFor(model => model.MatKhau)
+                </div>
+                <div>
+                    <span>Nhập lại mật khẩu</span>
+                    @Html.Password("NhapLaiMatKhau")
+                </div>
+                <div>
+                    <span> @Html.LabelFor(model => model.CauHoi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                    @Html.DropDownList("CauHoi")
+                </div>
+                <div>
+                    <span>@Html.LabelFor(model => model.CauTraLoi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                    @Html.TextBoxFor(model => model.CauTraLoi, new { @class = "cCauTraLoi" })
+                    @Html.ValidationMessageFor(model => model.CauTraLoi)
+                </div>
+
+                <div>
+                    @Html.Captcha(5)
+                </div>
+
+                <input type="submit" value="xác nhận">
+
+            </div>
+            <div class="clearfix"> </div>
+        }
+    </div>
+</div>
+<h1 style="color:red;">@ViewBag.ThongBao</h1>
+
